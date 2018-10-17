@@ -46,3 +46,38 @@ services:
     - discovery
     links:
     - discovery:discovery
+
+  phone-catalog:
+    image: skaralyus/phone-catalog
+    container_name: phone-catalog
+    build:
+      context: phone-catalog
+      dockerfile: Dockerfile
+    ports:
+    - "8070:8070"
+    depends_on:
+    - phone-catalog-db
+    - discovery
+    links:
+    - discovery:discovery
+    - phone-catalog-db:phone-catalog-db
+    environment:
+      PHONE_CATALOG_MONGO_URI: phone-catalog-db
+
+  phone-order:
+    image: skaralyus/phone-order
+    container_name: phone-order
+    build:
+      context: phone-order
+      dockerfile: Dockerfile
+    ports:
+    - "8070:8070"
+    depends_on:
+    - phone-order-db
+    - discovery
+    links:
+    - discovery:discovery
+    - phone-order-db:phone-order-db
+    environment:
+      PHONE_ORDER_MONGO_URI: phone-order-db
+
