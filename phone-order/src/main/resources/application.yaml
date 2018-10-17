@@ -1,0 +1,35 @@
+server:
+  port: ${PHONE_ORDER_SERVICE_PORT}
+
+spring:
+  application:
+    name: phone-order
+  data:
+    mongodb:
+      uri: mongodb://${PHONE_ORDER_MONGO_URI}/phoneorder
+  jackson:
+    default-property-inclusion: NON_ABSENT
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_SERVICE_HOST}:${DISCOVERY_SERVICE_PORT}/eureka
+
+ribbon:
+  eureka:
+    enabled: true
+
+services:
+  gateway:
+    base-url: ${GATEWAY_BASE_URL}
+  phone-catalog:
+    host: ${PHONE_CATALOG_SERVICE_HOST}
+    port: ${PHONE_CATALOG_SERVICE_PORT}
+
+logging:
+  level:
+    es.masmovil.phoneorder: DEBUG

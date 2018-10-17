@@ -1,0 +1,20 @@
+server:
+  port: ${PHONE_CATALOG_SERVICE_PORT}
+
+spring:
+  application:
+    name: phone-catalog
+  data:
+    mongodb:
+      uri: mongodb://${PHONE_CATALOG_MONGO_URI}/phonecatalog
+  jackson:
+    default-property-inclusion: NON_ABSENT
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_SERVICE_HOST}:${DISCOVERY_SERVICE_PORT}/eureka

@@ -1,0 +1,28 @@
+server:
+  port: ${GATEWAY_SERVICE_PORT}
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+      - id: phone-catalog
+        uri: ${PHONE_CATALOG_SERVICE_HOST}:${PHONE_CATALOG_SERVICE_PORT}
+        predicates:
+        - Path=/api/v1/phones/**
+      - id: phone-order
+        uri: ${PHONE_ORDER_SERVICE_HOST}:${PHONE_ORDER_SERVICE_PORT}
+        predicates:
+        - Path=/api/v1/orders/**
+      default-filters:
+        - RewritePath=/api/v1/(?<service>.*)/(?<segment>.*), /$\{service}/$\{segment}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_SERVICE_HOST}:${DISCOVERY_SERVICE_PORT}/eureka

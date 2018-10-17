@@ -1,0 +1,49 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+group = 'es.masmovil'
+mainClassName = 'es.masmovil.discovery.DiscoveryApplication'
+sourceCompatibility = 10
+
+repositories {
+	mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+
+    dependencies {
+        dependency "javax.xml.bind:jaxb-api:$jaxbVersion"
+        dependency("javax.activation:activation:$javaxActivationVersion")
+        dependency("org.glassfish.jaxb:jaxb-runtime:$jaxbVersion")
+
+    }
+}
+
+
+dependencies {
+	implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+
+    implementation('javax.xml.bind:jaxb-api')
+    implementation('javax.activation:activation')
+    implementation('org.glassfish.jaxb:jaxb-runtime')
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+

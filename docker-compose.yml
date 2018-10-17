@@ -1,0 +1,48 @@
+version: "3.7"
+
+services:
+
+  phone-catalog-db:
+    command: mongod
+    image: mongo
+    hostname: phone-catalog-db
+    ports:
+    - "27020:27017"
+    deploy:
+      restart_policy:
+        condition: any
+
+  phone-order-db:
+    command: mongod
+    image: mongo
+    hostname: phone-order-db
+    ports:
+    - "27021:27017"
+    deploy:
+      restart_policy:
+        condition: any
+
+  discovery:
+    image: skaralyus/discovery
+    container_name: discovery
+    build:
+      context: discovery
+      dockerfile: Dockerfile
+    ports:
+    - "8761:8761"
+    depends_on:
+    - phone-catalog-db
+
+  gateway:
+    container_name: gateway
+    build:
+      context: gateway
+      dockerfile: Dockerfile
+    image: skaralyus/gateway:latest
+    ports:
+    - "8080:8080"
+    depends_on:
+    - phone-catalog-db
+    - discovery
+    links:
+    - discovery:discovery

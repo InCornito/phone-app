@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "086cf882-eac9-46c5-8624-2e1d233d00d4",
+		"name": "Phone app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "phone-catalog",
+			"item": [
+				{
+					"name": "get phones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/phones/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"phones",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "phone price by phone id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/phones/5bbdc25b3567f20006f07259",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"phones",
+								"5bbdc25b3567f20006f07259"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "batch prices by ids",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ids\" : [\"5bbdc25b3567f20006f07259\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/phones/batch-prices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"phones",
+								"batch-prices"
+							]
+						},
+						"description": "Request:\n[\"5bbdc25b3567f20006f07259\"]\nResponse:\n[\n    {\n        \"id\": \"5bbdc25b3567f20006f07259\",\n        \"price\": 499.99\n    }\n]"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "phone-order",
+			"item": [
+				{
+					"name": "create order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\" : \"testUUID\",\n\t\"userName\" : \"Simon\",\n\t\"userSurname\" : \"Karalyus\",\n\t\"userEmail\" : \"skaralyus@gmail.com\",\n\t\"phoneIds\" : [\n\t\t\"5bbdbb57a71801049c8f9c8c\",\n\t\t\"5bbdbb57a71801049c8f9c8a\",\n\t\t\"5bbdbb57a71801049c8f9c89\",\n\t\t\"notExistedId\"\n\t]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/orders/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\" : \"testUUID\",\n\t\"userName\" : \"Simon\",\n\t\"userSurname\" : \"Karalyus\",\n\t\"userEmail\" : \"skaralyus@gmail.com\",\n\t\"phoneIds\" : [\n\t\t\"5bbdbb57a71801049c8f9c8c\",\n\t\t\"5bbdbb57a71801049c8f9c8a\",\n\t\t\"5bbdbb57a71801049c8f9c89\",\n\t\t\"notExistedId\"\n\t]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/orders/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
